@@ -14,6 +14,13 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	//create ./other to save output
+	if(argc != 3)
+	{
+		cout<<"Usage:   topoDP <parameter file> <true topology file>"<<endl;
+		exit(1);
+	}
+
+	
 	mode_t mode = 0755;
 
 	DFCDirectory("./other", mode);
@@ -24,7 +31,7 @@ int main(int argc, char *argv[])
 	parameterFile.exceptions(ifstream::failbit);
 
 	try{
-		parameterFile.open("./parameter");
+		parameterFile.open(argv[1]);
 	}
 	catch(ifstream::failure e)
 	{
@@ -34,6 +41,9 @@ int main(int argc, char *argv[])
 
 	string sequenceFile, mrcFile, helixFile, sheetFile;
 	string str;
+
+	double gap, penalty, secondaryPenalty;
+
 	int K;//save k value, which is the number of topologies that program will generate
 	
 	try{
@@ -52,6 +62,15 @@ int main(int argc, char *argv[])
 		parameterFile>>str>>K;
 		if(str != "K")//K information is required
 			throw StringException("K");
+		parameterFile>>str>>gap;
+		if(str != "Gap")//K information is required
+                        throw StringException("Gap");
+		parameterFile>>str>>penalty;
+                if(str != "Penalty")//K information is required
+                        throw StringException("Penalty");
+		parameterFile>>str>>secondaryPenalty;
+                if(str != "SecondaryPenalty")//K information is required
+                        throw StringException("SecondaryPenalty");
 	}
 	catch(StringException& e)
 	{
@@ -97,25 +116,15 @@ int main(int argc, char *argv[])
 	mrc.pdb("./other/density.pdb");//output voxel point in the skeleton with pdb format
 
 	//read true topology
-	cout<<"\nRead true topology from ./trueTopology ..."<<endl;
+	cout<<"\nRead true topolog..."<<endl;
 	vector<pair<int, int> > trueTopology;
-	trueTopology = getTrueTopology("./trueTopology");
+	trueTopology = getTrueTopology(argv[2]);
 
 	//show SSE length
 	showSSELength(sequenceNodeContainer, stickNodeContainer, trueTopology);
 
 	//read output parameter
-	int traceOutput, topologyTraceOutput;
-	ifstream outputParameterFile("./parameterOutput");
-	if(!outputParameterFile)
-	{
-		cerr<<"Can not open \"./parameterOutput\" ..."<<endl;
-		exit(1);
-	}
-	string strOutput;
-	outputParameterFile>>strOutput>>traceOutput;
-	outputParameterFile>>strOutput>>topologyTraceOutput;
-	outputParameterFile.close();
+	int traceOutput=1, topologyTraceOutput=1;
 
 	//build graph
 	Graph graph;
