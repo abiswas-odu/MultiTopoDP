@@ -1,0 +1,10 @@
+Sequence ./TestInput/1ICX/sequence.txt
+Helix    ./TestInput/1ICX/1ICX_Helix.txt
+Sheet    ./TestInput/1ICX/1ICX_Sheet.txt
+MRCFile  ./TestInput/1ICX/1ICXskeleton.mrc
+K        100
+Gap      10
+Penalty  50
+SecondaryPenalty 0
+RadiiAlpha       2.5
+RadiiBeta        2.5
