@@ -1,0 +1,113 @@
+<html>
+    <head>
+       <title>Diary in Old Dominion University</title>
+  <style   type="text/css">   
+  <!--   
+  a:link   {   
+  text-decoration:   none;   
+  }   
+  a:visited   {   
+  text-decoration:   none;   
+  }   
+  a:hover   {   
+  text-decoration:   underline;   
+  }
+  body      {color: purple;
+  }   
+  -->   
+  </style>
+    </head>
+<body background = "../../images/sky.gif" link = burlywood vlink = purple>
+	<li>Input file
+	<ul>
+		<li>All testing data are saved in ./input folder</li>
+		<li>sequence.txt, sequence information</li>
+		<li>helix.txt, helix sticks information</li>
+		<li>sheet.txt, helix sticks information</li>
+		<li>*.mrc, density map for the skeleton</li>
+		<li>trueTopology, contains the true topology //First col: index of the 
+		sequence segment, 2nd col: index of the sticks with 0/1 direction 
+		encoded. Eg: in 1ICX, (0,6) means the first segment is assigned to the 
+		4th stick. The trueTopology file is used to check if the output is close 
+		to the true topology.</li>
+	</ul>
+	</li>
+	<li></li>
+	<li>Parameter file
+	<ul>
+		<li>parameter
+		<ul>
+			<li>Sequence, sequence file path</li>
+			<li>Helix, helix axis points file path</li>
+			<li>Sheet, sheet axis points file path</li>
+			<li>MRCFile, skeleton file path</li>
+			<li>K, how many topology will be accessed</li>
+		</ul>
+		</li>
+		<li>parameterGap
+		<ul>
+			<li>Gap //10A gap by default on the skeleton</li>
+			<li>penalty</li>
+		</ul>
+		</li>
+		<li>parameterGraph
+		<ul>
+			<li>RadiiAlpha</li>
+			<li>RadiiSheet //2.5A default removing a cylinder from the skeleton, 
+			segment by segment of the strand trace.</li>
+		</ul>
+		</li>
+		<li>parameterOutput
+		<ul>
+			<li>Trace</li>
+			<li>TopologyPath</li>
+		</ul>
+		</li>
+		<li>parameterSheet
+		(beta constraints)
+		<ul>
+			<li>penaltySheetGap</li>
+			<li>penaltySheetDirection</li>
+			<li>neighborStrandReward</li>
+			<li>helixMatchReward</li>
+			<li>penaltyNodeDirection</li>
+		</ul>
+			</li>
+	</ul>
+	</li>
+	<li>Output
+	<ul>
+		<li>All output files are saved in ./other folder</li>
+		<li>StickH*.pdb, stick points of a helix</li>
+		<li>StickS*.pdb, stick points of a sheet</li>
+		<li>density.pdb, convert the skeleton from mrc format to pdb format</li>
+		<li>densityDelete.pdb, density points after deleting the density points around sticks</li>
+		<li>graph.txt, graph built with the sequence and the stick points</li>
+		<li>graphUpdate.txt, graph built with the sequence, the stick points, the skeleton, the constrains 
+		// entire graph with all the edge weights after skeleton trace before 
+		beta constraints</li>
+		<li>rank.txt, the rank of the true topology and the top K topologies</li>
+		<li>trace.txt</li>
+		<li>weightDebug.txt //after using skeleton trace, but no beta 
+		constraints</li>
+		<li>weightDebugUpdate.txt //after add beta constraints all the usefule 
+		edge weights, colume &quot;real&quot;. search by &quot;Truepath&quot;, the edge weight is 
+		shown if it is in the true path. If one add all the realWeights, it 
+		should be teh shortest cost.</li>
+		<li>./TopologyPath, saved the points for each topology //The trace 
+		selected by the program for each top ranked topology. &quot;Top1.pdb&quot; has the 
+		trace of the top 1 topology.</li>
+		<li>./Trace //&quot;index.txt&quot; has all the traces and the travel distance 
+		along each trace. A trace is the ordered cluster centers on the 
+		skeleton. The first point on each trace is the end of a stick. The index 
+		corresponds to the overall index of the cliques. &quot;cliqueCenter.pdb&quot; 
+		contains the cliques and the end points of the sticks. &quot;Trace.txt&quot; 
+		contains all the possible traces between any two end points.</li>
+	</ul>
+	</li>
+	<p>To run the program:</p>
+	<p>1. copy the &quot;prarameter.txt&quot; file and &quot;trueTopology&quot; from the input 
+	folder to the current folder of graph.exe.</p>
+	<p>2. Graph.exe</p>
+	<p>&nbsp;</p>
+</body>

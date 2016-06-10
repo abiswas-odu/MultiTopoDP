@@ -1,0 +1,17 @@
+Input:
+	Save in ./input, including sequence.txt, helix.txt, sheet.txt
+	sequence.txt, sequence information
+	helix.txt, helix sticks information
+	sheet.txt, sheet sticks information
+
+Implementation:
+	./Graph
+	output is saved in ./other
+
+Output:
+	density.pdb           //Skeleton points
+	graph.txt             //Graph information, which include edge and weight
+	table.txt             //Table in each node of the graph, which include path, f value and previous node
+	densityDelete.pdb     //Skeleton points after deleting the points around SSEs
+	clusterCenter.pdb     //Cluster center points       
+	cliqueCenter.pdb      //Clique center points

@@ -1,0 +1,5 @@
+Sequence ./input/1JL1/sequence.txt
+Helix    ./input/1JL1/1JL1_Helix.txt
+Sheet    ./input/1JL1/sheet.txt
+MRCFile  ./input/1JL1/1JL1skeleton.mrc
+K        100
