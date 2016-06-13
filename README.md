@@ -16,6 +16,9 @@ Clone the project from the git repo and run make using the command below:
 	git pull https://github.com/abiswas-odu/MultiTopoDP.git
 	
 	
+	cd MultiTopoDP
+	
+	
 	make
 	
 	
