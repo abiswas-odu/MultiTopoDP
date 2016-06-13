@@ -6,7 +6,6 @@
 #include "dirFile.h"
 #include "SequenceNode.h"
 #include "StickNode.h"
-#include "StringException.h"
 #include "Ultility.h"
 #include "Graph.h"
 using namespace std;
@@ -41,41 +40,60 @@ int main(int argc, char *argv[])
 
 	string sequenceFile, mrcFile, helixFile, sheetFile;
 	string str;
-
 	double gap, penalty, secondaryPenalty;
 
 	int K;//save k value, which is the number of topologies that program will generate
 	
-	try{
-		parameterFile>>str>>sequenceFile;
-		if(str != "Sequence")//sequence information is required
-			throw StringException("Sequence");
-		parameterFile>>str>>helixFile;
-		if(str != "Helix")//helix information is optional, set up this term to be "-" if no helix file exist
-			throw StringException("Helix");
-		parameterFile>>str>>sheetFile;
-		if(str != "Sheet")//sheet information is optional, set up this term to be "-" if no sheet file exist
-			throw StringException("Sheet");
-		parameterFile>>str>>mrcFile;
-		if(str != "MRCFile")//skeleton file
-			throw StringException("MRCFile");
-		parameterFile>>str>>K;
-		if(str != "K")//K information is required
-			throw StringException("K");
-		parameterFile>>str>>gap;
-		if(str != "Gap")//K information is required
-                        throw StringException("Gap");
-		parameterFile>>str>>penalty;
-                if(str != "Penalty")//K information is required
-                        throw StringException("Penalty");
-		parameterFile>>str>>secondaryPenalty;
-                if(str != "SecondaryPenalty")//K information is required
-                        throw StringException("SecondaryPenalty");
-	}
-	catch(StringException& e)
+
+	parameterFile>>str>>sequenceFile;
+	if(str != "Sequence") //sequence information is required
 	{
-		cout<<e.what()<<" file can not be read!"<<endl;
+		cout<<"Sequence parameter not found in parameter file."<<endl;
+		exit(1);
 	}
+	parameterFile>>str>>helixFile;
+	if(str != "Helix")//helix information is optional, set up this term to be "-" if no helix file exist
+	{
+		cout<<"Helix sticks parameter not found in parameter file. Set is to "-" if no helix sticks exist."<<endl;
+		exit(1);
+	}
+	parameterFile>>str>>sheetFile;
+	if(str != "Sheet")//sheet information is optional, set up this term to be "-" if no sheet file exist
+	{
+		cout<<"Sheet sticks parameter not found in parameter file. Set is to "-" if no sheet sticks exist."<<endl;
+		exit(1);
+	}
+	parameterFile>>str>>mrcFile;
+	if(str != "MRCFile")//skeleton file
+	{
+		cout<<"MRC file not found in parameter file."<<endl;
+		exit(1);
+	}
+	parameterFile>>str>>K;
+	if(str != "K")//K information is required
+	{
+		cout<<"Top-K parameter  not found in parameter file."<<endl;
+		exit(1);
+	}
+	parameterFile>>str>>gap;
+	if(str != "Gap")//Gap information is required
+	{
+		cout<<"Gap parameter  not found in parameter file."<<endl;
+		exit(1);
+	}
+	parameterFile>>str>>penalty;
+	if(str != "Penalty")//Penalty information is required
+	{
+		cout<<"Penalty parameter  not found in parameter file."<<endl;
+		exit(1);
+	}
+	parameterFile>>str>>secondaryPenalty;
+	if(str != "SecondaryPenalty")//Secondary Penalty information is required
+	{
+		cout<<"Secondary Penalty parameter  not found in parameter file."<<endl;
+		exit(1);
+	}
+
 
 	parameterFile.close();
 
