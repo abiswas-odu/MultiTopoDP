@@ -750,7 +750,7 @@ void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<
 
 	cout<<"\nOutput weight set up information into ./other/weightDebug.txt ..."<<endl;
 
-	weightDebugFile<<setw(8)<<"Row"<<setw(8)<<"Column"<<setw(8)<<"Row"<<setw(8)<<"Column"<<setw(5)<<"T-1"<<setw(5)<<"T-2"<<setw(10)<<"Real"<<setw(10)<<"Ideal"<<setw(10)<<"Original"<<endl;
+	weightDebugFile<<setw(8)<<"Row"<<setw(8)<<"Column"<<setw(8)<<"Row"<<setw(8)<<"Column"<<setw(5)<<"T-1"<<setw(5)<<"T-2"<<setw(15)<<"Real"<<setw(15)<<"Ideal"<<setw(15)<<"Original"<<endl;
 
 	//get true topology
 	vector<pair<int, int> > trueTopology;
