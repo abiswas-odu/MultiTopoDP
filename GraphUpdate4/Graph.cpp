@@ -513,7 +513,7 @@ void Graph::table(const vector<SequenceNode> &sequenceNodeContainer, const vecto
 	//showTable();//output table information
 }
 
-void Graph::readParameter(double &radiiAlpha, double &radiiBeta)
+/*void Graph::readParameter(double &radiiAlpha, double &radiiBeta)
 {
 	ifstream file("./parameterGraph");
 	string str;
@@ -534,9 +534,11 @@ void Graph::readParameter(double &radiiAlpha, double &radiiBeta)
 	stream.str("");
 
 	file.close();
-}
+}*/
 
-void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<int> > &tracePathsCopy, const MRC &mrc, const vector<SequenceNode> &sequenceNodeContainer, const vector<StickNode> &stickNodeContainer, int traceOutput)
+void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<int> > &tracePathsCopy,
+		const MRC &mrc, const vector<SequenceNode> &sequenceNodeContainer, const vector<StickNode> &stickNodeContainer,
+		int traceOutput,double gap,double penalty,double secondaryPenalty)
 {
 	cout<<"\n---------Build Loop Weight----------"<<endl;
 	vector<Point> voxelContainer, voxelContainerDelete;//save the voxel points and voxel points after deleting
@@ -545,8 +547,8 @@ void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<
 	cout<<"\nThere are "<<voxelContainer.size()<<" voxels in the skeleton ..."<<endl;
 
 	cout<<"\nDelete voxels around sticks within the cylinder ..."<<endl;
-	double radiiAlpha, radiiBeta;
-	readParameter(radiiAlpha, radiiBeta);
+	double radiiAlpha=2.5, radiiBeta=2.5;
+	//readParameter(radiiAlpha, radiiBeta);
 	cout<<"Radii alpha: "<<radiiAlpha<<" Radii beta: "<<radiiBeta<<endl;
 
 	//delete points around stick
@@ -734,28 +736,9 @@ void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<
 	//set weight for each loop
 	cout<<"\nSet weight for each loop ..."<<endl;
 
-	double gap, penalty, secondaryPenalty;
-	string gapStr, penaltyStr, secondaryPenaltyStr;
-
-	//read gap parameter
-	ifstream gapFile("./parameterGap");
-	if(!gapFile)
-	{
-		cerr<<"Can not open \"./parameterGap\" file ..."<<endl;
-		gap = 10.0;//set default gap to be 10 angstrom
-	}
-	else
-	{
-		gapFile>>gapStr>>gap;
-		gapFile>>penaltyStr>>penalty;
-		gapFile>>secondaryPenaltyStr>>secondaryPenalty;
-	}
-
 	cout<<"\nGap value takes "<<gap<<" angstroms ..."<<endl;
 	cout<<"\nPenalty takes "<<penalty<<" for the sticks pair that no trace between them ..."<<endl;
 	cout<<"\nSecondary penalty takes "<<secondaryPenalty<<" for the sticks pair that gap is less than cutoff ..."<<endl;
-
-	gapFile.close();
 
 	//save the orignal weight, real weight and current weight
 	//these values can be used to adjust parameter
@@ -771,7 +754,7 @@ void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<
 
 	//get true topology
 	vector<pair<int, int> > trueTopology;
-	trueTopology = getTrueTopology("./trueTopology");
+	trueTopology = getTrueTopology(trueTopoFile);
 
 	cout<<"\nSet up weight for each edge ..."<<endl;
 	//set up weight for each edge
@@ -868,25 +851,10 @@ void Graph::betaSheet(const vector<SequenceNode> &sequenceNodeContainer, const v
 
 	//read true topology
 	vector<pair<int, int> > trueTopology;
-	trueTopology = getTrueTopology("./trueTopology");
-
-	//read parameter
-	ifstream parameterFile("./parameterSheet");
-	if(!parameterFile)
-	{
-		cerr<<"Can not open \"parameterSheet\" ..."<<endl;
-		exit(1);
-	}
+	trueTopology = getTrueTopology(trueTopoFile);
 
 	string parameterStr;
-	int addPenaltySheetGap, addPenaltySheetDirection, addNeighborStrandReward, addHelixMatchReward, addPenaltyNodeDirection;
-	parameterFile>>parameterStr>>addPenaltySheetGap;
-	parameterFile>>parameterStr>>addPenaltySheetDirection;
-	parameterFile>>parameterStr>>addNeighborStrandReward;
-	parameterFile>>parameterStr>>addHelixMatchReward;
-	parameterFile>>parameterStr>>addPenaltyNodeDirection;
-
-	parameterFile.close();
+	int addPenaltySheetGap=1, addPenaltySheetDirection=1, addNeighborStrandReward=1, addHelixMatchReward=1, addPenaltyNodeDirection=1;
 
 	ofstream weightDebugFile("./other/weightDebugUpdate.txt");
 	if(!weightDebugFile)

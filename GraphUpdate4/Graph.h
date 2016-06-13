@@ -10,8 +10,10 @@
 class Graph
 {
 	private: vector<vector<GraphNode> > array;
+	string trueTopoFile;
+
 	public:
-		 Graph(){}
+		 Graph(string trueFname){ trueTopoFile=trueFname; }
 
 		 vector<vector<pair<int, int> > > topK(int K, const vector<SequenceNode> &, const vector<StickNode> &, vector<double> &);//check the top K path
 
@@ -47,7 +49,7 @@ class Graph
 
 		 void buildAdjMtrx(vector<vector<Point> > &clusters, vector<vector<double> > &cDist, vector<vector<int> > &adjMtrx, double apix, int nClustersOriginal, double continuatyTHR);//build adjancy matrix
 
-		 void buildUpdate(vector<Point> &, vector<vector<int> > &, const MRC &mrc, const vector<SequenceNode> &sequenceNodeContainer, const vector<StickNode> &stickNodeContainer, int traceOutput);//build graph, set weight, inner, outer, row, column, rowIndex, columnIndex to each node by taking skeleton as reference
+		 void buildUpdate(vector<Point> &, vector<vector<int> > &, const MRC &mrc, const vector<SequenceNode> &sequenceNodeContainer, const vector<StickNode> &stickNodeContainer, int traceOutput,double gap,double penalty,double secondaryPenalty);//build graph, set weight, inner, outer, row, column, rowIndex, columnIndex to each node by taking skeleton as reference
 
 		 void betaSheet(const vector<SequenceNode> &, const vector<StickNode> &);//adjust the edge weight which include beta strand
 

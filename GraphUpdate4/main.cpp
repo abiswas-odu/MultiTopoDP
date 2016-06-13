@@ -134,9 +134,10 @@ int main(int argc, char *argv[])
 	mrc.pdb("./other/density.pdb");//output voxel point in the skeleton with pdb format
 
 	//read true topology
-	cout<<"\nRead true topolog..."<<endl;
+	cout<<"\nRead true topology..."<<endl;
 	vector<pair<int, int> > trueTopology;
-	trueTopology = getTrueTopology(argv[2]);
+	string trueFileName = argv[2];
+	trueTopology = getTrueTopology(trueFileName);
 
 	//show SSE length
 	showSSELength(sequenceNodeContainer, stickNodeContainer, trueTopology);
@@ -145,7 +146,7 @@ int main(int argc, char *argv[])
 	int traceOutput=1, topologyTraceOutput=1;
 
 	//build graph
-	Graph graph;
+	Graph graph(trueFileName);
 
 	//set up the edge and corresponding weight
 	cout<<"\nBuild graph and set weight for each edge ..."<<endl;
@@ -157,7 +158,7 @@ int main(int argc, char *argv[])
 	//build graph by considering the loop alongs skeleton voxel trace
 	vector<Point> cliqueCenterContainer;
 	vector<vector<int> > tracePaths;
-	graph.buildUpdate(cliqueCenterContainer, tracePaths, mrc, sequenceNodeContainer, stickNodeContainer, traceOutput);
+	graph.buildUpdate(cliqueCenterContainer, tracePaths, mrc, sequenceNodeContainer, stickNodeContainer, traceOutput,gap,penalty,secondaryPenalty);
 	//update edge weight which includes beta strands
 	graph.betaSheet(sequenceNodeContainer, stickNodeContainer);
 
