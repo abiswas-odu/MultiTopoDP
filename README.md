@@ -19,6 +19,7 @@ Test installation
 A directory named other will be created will the output files.
 
 ## Execution
+
 Prepare a parameter file and a true topology file. See the example in the TestInput directory.  
 Change only the first 4 parameters in the parameter file. 
 
