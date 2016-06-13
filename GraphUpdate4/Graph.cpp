@@ -821,7 +821,7 @@ void Graph::buildUpdate(vector<Point> &cliqueCenterContainerCopy, vector<vector<
 				array[endNode.first][endNode.second].setWeightIn(startNode, realWeight);
 
 				//output weight information
-				weightDebugFile<<setw(8)<<startNode.first<<setw(8)<<startNode.second<<setw(8)<<endNode.first<<setw(8)<<endNode.second<<setw(5)<<tracePair.first<<setw(5)<<tracePair.second<<setw(10)<<realWeight<<setw(10)<<idealLength<<setw(10)<<originalWeight;
+				weightDebugFile<<setw(8)<<startNode.first<<setw(8)<<startNode.second<<setw(8)<<endNode.first<<setw(8)<<endNode.second<<setw(5)<<tracePair.first<<setw(5)<<tracePair.second<<setw(15)<<realWeight<<setw(15)<<idealLength<<setw(15)<<originalWeight;
 
 				if(isTruePath(trueTopology, startNode, endNode))
 					weightDebugFile<<setw(10)<<"TruePath";
