@@ -6,7 +6,7 @@ The project is available on GitHub at https://github.com/abiswas-odu/MultiTopoDP
 
 ### Prerequisites 
 
-You will need the GNU C++ compiler installed on any Linuc distribution.
+You will need the GNU C++ compiler installed on any Linux distribution.
  
 ### Steps
 
@@ -28,7 +28,7 @@ Test installation
 	./topoDP TestInput/1ICX/parameter TestInput/1ICX/trueTopology
 	
 	
-A directory named other will be created will the output files.
+A directory named "other" will be created will the output files.
 
 ### Execution
 
